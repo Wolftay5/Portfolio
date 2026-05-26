@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compétences | Gabin Leroy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="hamburger" class="hamburger">
+        <span></span><span></span><span></span>
+    </div>
+
+    <nav id="menu-links" class="menu-hidden">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos de moi</a></li>
+            <li><a href="stagejapon.html">Expérience Professionnelle</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="competences.html">Compétences</a></li>
+            <li><a href="index.html#hobbies">Hobbies</a></li>
+        </ul>
+    </nav>
+
+    <header class="about-banner">
+        <h1>Mes Compétences</h1>
+        <p class="banner-text">Triez et cliquez sur une compétence pour en voir les détails.</p>
+    </header>
+
+    <main class="container">
+        
+        <div class="filter-section">
+            <label for="skill-filter">Trier par :</label>
+            <select id="skill-filter" class="custom-select">
+                <option value="all">Toutes les compétences</option>
+                <option value="informatique">Informatique & Programmation</option>
+                <option value="geii">Compétences BUT GEII</option>
+            </select>
+        </div>
+
+        <div id="skills-board" class="skills-grid">
+
+            <div class="skill-card" data-label="informatique">
+                <h3>Programmation C++ & ROS</h3>
+                <div class="skill-details" style="display: none;">
+                    <p>Développement de systèmes embarqués et robotiques avancés.</p>
+                    <ul>
+                        <li>Création de nœuds ROS (Robot Operating System)</li>
+                        <li>Programmation orientée objet en C++</li>
+                        <li>Gestion de la navigation et des capteurs LiDAR</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="skill-card" data-label="informatique">
+                <h3>Python & IA</h3>
+                <div class="skill-details" style="display: none;">
+                    <p>Développement de scripts d'automatisation et de réseaux de neurones (ex: reconnaissance de main avec ORCA).</p>
+                </div>
+            </div>
+
+            <div class="geii-header" data-group="geii">
+            <h3 class="skill-title color-red">Compétence CONCEVOIR</h3>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="red">
+            <h3>C.1 : J'identifie les fonctions demandées...</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="red">
+            <h3>C.2 : Je propose une solution technique...</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="red">
+            <h3>C.3 : J'affine une solution technique...</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="red">
+            <h3>C.4 : Je rédige un dossier de conception...</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+
+        <div class="geii-header" data-group="geii">
+            <h3 class="skill-title color-orange">Compétence VERIFIER</h3>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="orange">
+            <h3>V.1 : J'applique, j'élabore, je rédige une procédure d'essais</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="orange">
+            <h3>V.2 : J'identifie, je corrige les non-conformités...</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+
+        <div class="geii-header" data-group="geii">
+            <h3 class="skill-title color-yellow">Compétence MAINTENIR</h3>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="yellow">
+            <h3>M.1 : J'applique une opération de maintenance...</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="yellow">
+            <h3>M.2 : Je rédige la procédure de maintenance...</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+
+        <div class="geii-header" data-group="geii">
+            <h3 class="skill-title color-green">Compétence IMPLANTER (ESE)</h3>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="green">
+            <h3>I.3.1 : J'exécute la fabrication, l'installation...</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+        <div class="skill-card" data-label="geii" data-color="green">
+            <h3>I.3.2 : Je prouve la conformité du système</h3>
+            <div class="skill-details" style="display: none;"><p>Détails à rédiger...</p></div>
+        </div>
+
+        <div id="skill-modal" class="modal-hidden">
+            <div class="modal-content">
+                <button id="close-modal" class="close-btn">&times;</button>
+                <h2 id="modal-title" class="accent-text">Titre</h2>
+                <div id="modal-body">
+                    </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="sticky-footer">
+        <div class="footer-content">
+            <p class="contact-intro">Si vous souhaitez me contacter :</p>
+            <div class="contact-links">
+                <span class="contact-mail"><strong>lgabin2006@gmail.com</strong></span>
+                <span class="separator">|</span>
+                <a href="https://www.linkedin.com/in/gabin-leroy-820791335" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

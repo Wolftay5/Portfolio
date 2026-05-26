@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Gabin Leroy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="hamburger" class="hamburger">
+        <span></span><span></span><span></span>
+    </div>
+
+    <nav id="menu-links" class="menu-hidden">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos de moi</a></li>
+            <li><a href="stagejapon.html">Expérience Professionnelle</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="index.html#home-skills">Compétences GEII</a></li>
+            <li><a href="index.html#hobbies">Hobbies</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Portfolio - Gabin Leroy</h1>
+        <p class="subtitle">Étudiant en BUT GEII - Parcours ESE | Robotique & Systèmes Embarqués</p>
+    </header>
+
+    <main class="container">
+        
+        <section class="section-card">
+            <h2>À propos de moi</h2>
+            <p>Durant les cours de technologie au collège, j'ai découvert la robotique et j'ai tout de suite accroché. Aujourd'hui étudiant en BUT GEII et en Robotique Autonome à l'IUT de Bordeaux, je me spécialise dans les systèmes embarqués avec l'objectif d'évoluer professionnellement dans ce secteur.</p>
+            <a href="about.html" style="color: var(--accent); text-decoration: none; font-weight: bold;">En savoir plus →</a>
+        </section>
+
+        <!-- SECTION EXPÉRIENCE (Bouton Large) -->
+        <section class="section-card">
+            <h2>Expérience Professionnelle</h2>
+            <div class="grid-layout single-item">
+                <a href="stagejapon.html" class="card-btn japan-card">
+                    <div class="overlay">
+                        <h3>Stage au Japon - ORCA Hand Recognition</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <a href="projets.html" style="text-decoration: none; color: inherit;">
+                <h2 style="cursor: pointer;">Projets <span style="font-size: 0.6em; color: var(--accent);"> (Voir tout →)</span></h2>
+            </a>
+
+            <div class="grid-layout">
+                <a href="robotsumo.html" class="card-btn" style="background-image: url('img/robotsumo.jpg');">
+                    <div class="overlay">
+                        <h3>Robot Mini-Sumo</h3>
+                        <p>Développement sous ROS et C++</p>
+                    </div>
+                </a>
+                
+                <a href="robotholonome.html" class="card-btn" style="background-image: url('img/robot-hand.jpg');">
+                    <div class="overlay">
+                        <h3>Robot Holonome Autonome</h3>
+                        <p>Contrôle par capteurs de flexion</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="home-skills" class="section-card">
+            <h2>Compétences</h2>
+            <div class="grid-layout single-item">
+<a href="competences.html" class="card-btn" style="background: linear-gradient(135deg, #4c1d95, #1e3a8a, #00f3ff); transition: all 0.3s ease;">
+    <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
+        <h3 style="font-size: 2.2em; margin: 0; color: var(--white); font-weight: 700; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);">Consulter mes compétences</h3>
+    </div>
+</a>
+            </div>
+        </section>
+
+        <section id="hobbies" class="section-card">
+            <h2>Hobbies</h2>
+            <div class="grid-layout">
+                <a href="trail.html" class="card-btn" style="background-image: url('img/panorama.jpg');">
+                    <div class="overlay"><h3>Trail Running</h3></div>
+                </a>
+                <a href="photo.html" class="card-btn" style="background-image: url('img/fujitakao.jpg');">
+                    <div class="overlay"><h3>Photographie</h3></div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="sticky-footer">
+        <div class="footer-content">
+            <p class="contact-intro">Si vous souhaitez me contacter :</p>
+            <div class="contact-links">
+                <span class="contact-mail"><strong>lgabin2006@gmail.com</strong></span>
+                <span class="separator">|</span>
+                <a href="https://www.linkedin.com/in/gabin-leroy-820791335" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

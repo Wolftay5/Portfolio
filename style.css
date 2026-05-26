@@ -1,0 +1,632 @@
+html { scroll-behavior: smooth; }
+
+/* --- VARIABLES --- */
+:root {
+    --bg-dark: #02060c;
+    --block-bg: #162231;
+    --card-bg: #23354d;
+    --accent: #a5d8ff;
+    --white: #ffffff;
+    --text-dim: #b0b8c3;
+    --skill-red: #e74c3c;
+    --skill-orange: #e67e22;
+    --skill-yellow: #f1c40f;
+    --skill-green: #2ecc71;
+}
+
+body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--white);
+    line-height: 1.6;
+    padding-bottom: 120px;
+}
+
+.container { width: 90%; max-width: 1100px; margin: 0 auto; }
+
+/* --- HEADER & BANNIÈRES --- */
+.hero { text-align: center; padding: 100px 20px 60px; }
+.hero h1, .about-banner h1 { font-size: 3.5em; color: var(--white); font-weight: 800; margin: 0; }
+.subtitle { color: var(--white); opacity: 0.9; font-size: 1.2em; margin-top: 10px; }
+
+.about-banner {
+    width: 100%; background: var(--block-bg);
+    border-bottom: 2px solid var(--accent);
+    padding: 80px 0; text-align: center;
+}
+.about-banner h1 { margin-bottom: 20px; }
+.banner-text { max-width: 800px; margin: 0 auto; padding: 0 20px; font-size: 1.2em; color: var(--text-dim); }
+
+/* --- MENU HAMBURGER --- */
+.hamburger {
+    position: fixed; top: 25px; left: 25px; z-index: 2000; cursor: pointer;
+    background: var(--block-bg); padding: 15px; border-radius: 8px;
+    border: 1px solid var(--white); display: flex; flex-direction: column; gap: 6px;
+}
+.hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
+
+#menu-links {
+    position: fixed; top: 0; left: 0; height: 100vh; width: 280px;
+    background: var(--block-bg); border-right: 1px solid var(--white);
+    z-index: 1500; padding-top: 100px; transition: transform 0.4s ease;
+}
+.menu-hidden { transform: translateX(-100%); }
+#menu-links ul { list-style: none; padding: 0 40px; margin: 0; }
+#menu-links a { text-decoration: none; color: var(--white); font-size: 1.3em; display: block; padding: 15px 0; }
+#menu-links a:hover { color: var(--accent); }
+
+/* --- SECTIONS & GRILLES --- */
+.section-card {
+    background: var(--block-bg); margin: 40px auto; padding: 40px;
+    border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+.grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 25px; }
+.single-item { grid-template-columns: 1fr !important; }
+
+/* --- BOUTONS (LE FIX ULTIME - OMBRE INTERNE) --- */
+.card-btn {
+    height: 240px; border-radius: 12px;
+    background-color: transparent; /* On enlève le fond sombre qui bavait */
+    position: relative; overflow: hidden;
+    text-decoration: none; color: var(--white); display: block; transition: all 0.3s ease;
+    
+    /* On remplace la bordure classique par une ombre interne. 
+       Elle couvre parfaitement le bord sans laisser de vide microscopique ! */
+    border: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    
+    background-size: cover;
+    background-position: center;
+    
+    transform: translateZ(0);
+    isolation: isolate;
+}
+
+.card-btn:hover { 
+    transform: translateY(-8px); 
+    /* Au survol, l'ombre interne devient bleue (var--accent) et on garde l'ombre externe */
+    box-shadow: inset 0 0 0 1px var(--accent), 0 10px 20px rgba(0,0,0,0.3);
+}
+
+
+/* L'overlay gère uniquement le texte et le dégradé noir */
+.overlay { 
+    position: absolute; inset: 0; 
+    z-index: 2; 
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); 
+    padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; 
+}
+
+/* Le pseudo-élément ::after gère le flou, en débordant de 10px pour couper le défaut */
+.overlay::after {
+    content: "";
+    position: absolute;
+    top: -10px; left: -10px; right: -10px; bottom: -10px; 
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px); /* Indispensable pour Safari/iOS */
+    z-index: -1; /* Reste sagement derrière le texte et le dégradé */
+    transition: backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+}
+
+.overlay h3 { font-size: 1.5em; margin: 0; }
+
+/* Au survol, l'image devient nette */
+.card-btn:hover .overlay::after {
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+}
+/* --- LIGNES ALTERNÉES (PROJETS & PHOTOS) --- */
+.project-row, .photo-row { display: flex; align-items: center; gap: 40px; margin-bottom: 80px; }
+.project-row.reverse, .photo-row.reverse { flex-direction: row-reverse; }
+
+/* Spécificités Projets */
+.project-row { background: var(--block-bg); padding: 30px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.05); margin-top: 60px; }
+.project-image, .photo-text { flex: 1; }
+.project-image img { width: 100%; border-radius: 10px; height: 300px; object-fit: cover; }
+.project-text { flex: 1; }
+.project-text h3, .photo-text h2 { font-size: 1.8em; margin-bottom: 15px; color: var(--accent); }
+
+.category-title { font-size: 2.5em; color: var(--accent); margin: 60px 0 20px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px; }
+.subcategory-title { font-size: 1.8em; color: var(--white); margin: 40px 0; opacity: 0.8; }
+
+/* Spécificités Photo (Carrousel) - VERSION 2 */
+.photo-container-v2 { margin: 80px 0; width: 100%; }
+.carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); aspect-ratio: 16 / 9; }
+.carousel-slide { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
+.carousel-slide::-webkit-scrollbar { display: none; }
+.carousel-slide img { width: 100%; flex-shrink: 0; scroll-snap-align: start; object-fit: cover; aspect-ratio: 16 / 9; height: auto; }
+
+/* Pas de bloc de fond, texte directement posé avec ombres 3D */
+.photo-text-v2 {
+    position: absolute; bottom: 40px; width: 50%; z-index: 10; pointer-events: none;
+}
+.photo-text-v2 h2 { 
+    font-size: 2.2em; color: var(--white); margin-bottom: 10px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 1), -1px -1px 0 rgba(0,0,0,0.5); 
+}
+.photo-text-v2 p { 
+    font-size: 1.1em; color: #ffffff; margin: 0;
+    text-shadow: 1px 1px 8px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0,0,0,0.8); 
+}
+.text-left { left: 40px; text-align: left; }
+.text-right { right: 40px; text-align: right; left: auto; }
+
+@media (max-width: 768px) {
+    .photo-text-v2 { width: 85%; bottom: 20px; left: 20px !important; text-align: left !important; }
+    .photo-text-v2 h2 { font-size: 1.5em; }
+    .photo-text-v2 p { font-size: 0.9em; }
+}
+
+/* --- TRANSITION DE FOND DYNAMIQUE (PAGE PHOTO) --- */
+body.photo-theme {
+    transition: background-color 1s ease; /* Transition très douce de 1 seconde */
+}
+
+/* --- BOUTONS --- */
+.btn-more, .btn-cv-download, .btn-insta, .btn-doc {
+    display: inline-block; font-weight: bold; text-decoration: none; transition: 0.3s;
+}
+.btn-more { margin-top: 15px; color: var(--accent); border: 1px solid var(--accent); padding: 8px 20px; border-radius: 5px; }
+.btn-more:hover { background: var(--accent); color: var(--bg-dark); }
+.btn-cv-download { display: block; background: var(--accent); color: var(--bg-dark); text-align: center; padding: 20px; margin-bottom: 20px; border-radius: 8px; font-size: 1.1em; }
+.btn-cv-download:hover { background: var(--white); transform: translateY(-3px); }
+.btn-insta { margin-top: 20px; padding: 10px 25px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; border-radius: 50px; }
+.btn-insta:hover { transform: scale(1.05); }
+
+/* --- NOUVEAU : BOUTONS DE DOCUMENTS (POUR LES PAGES PROJETS) --- */
+.docs-container { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
+.btn-doc { flex: 1; min-width: 200px; background: var(--card-bg); color: var(--white); padding: 15px; text-align: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); }
+.btn-doc:hover { background: var(--accent); color: var(--bg-dark); transform: translateY(-3px); }
+
+/* --- SECTION COMPÉTENCES (Titres et Couleurs GEII conservés) --- */
+.skill-title { font-size: 1.1em; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1.5px; border-left: 4px solid currentColor; padding-left: 15px; }
+.color-red { color: var(--skill-red); }
+.color-orange { color: var(--skill-orange); }
+.color-yellow { color: var(--skill-yellow); }
+.color-green { color: var(--skill-green); }
+
+/* --- PAGE CV --- */
+.cv-section { margin-top: 60; }
+.cv-display { background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); height: 800px; }
+.cv-display embed { width: 100%; height: 100%; }
+
+/* --- FOOTER STICKY --- */
+.sticky-footer { position: fixed; bottom: 0; width: 100%; background: var(--block-bg); border-top: 1px solid rgba(255,255,255,0.2); padding: 8px 0; z-index: 2000; box-shadow: 0 -10px 30px rgba(0,0,0,0.5); }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.contact-intro { margin: 0; font-size: 0.95em; color: var(--text-dim); }
+.contact-links { margin: 0; display: flex; align-items: center; gap: 20px; }
+.sticky-footer a { color: var(--accent); text-decoration: none; font-weight: bold; transition: 0.3s; }
+.sticky-footer a:hover { text-decoration: underline; color: var(--white); }
+.separator { color: rgba(255,255,255,0.2); }
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    .grid-layout { grid-template-columns: 1fr; }
+    .hero h1, .about-banner h1 { font-size: 2.5em; }
+    /* Regroupement des comportements colonnes sur mobile */
+    .project-row, .project-row.reverse, .photo-row, .photo-row.reverse { flex-direction: column; gap: 20px; }
+    .carousel-slide img { height: 300px; }
+}
+@media (max-width: 500px) {
+    .contact-links { flex-direction: column; gap: 5px; }
+    .separator { display: none; }
+}
+
+/* --- BANNIÈRE JAPON : Néon Blanc Détaché --- */
+.japan-banner {
+    position: relative; width: 100%; height: 400px;
+    background: radial-gradient(circle at 80% 50%, #e0e6ed 10%, #1c2b40 85%, var(--bg-dark) 150%);
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; border-bottom: 2px solid #bc002d;
+}
+.japan-banner h1 { position: relative; z-index: 10; font-size: 3.5em; margin-bottom: 20px; color: var(--white); text-shadow: 0 0 10px rgba(0,0,0,0.6); }
+.japan-banner .banner-text { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; padding: 0 20px; font-size: 1.2em; color: var(--white); text-shadow: 0 0 10px rgba(0,0,0,0.6); }
+
+.japan-banner::before {
+    content: ""; position: absolute; width: 280px; height: 280px; right: 10%; top: 50%; transform: translateY(-50%);
+    background-color: #bc002d; border-radius: 50%; 
+    filter: blur(8px); opacity: 1; z-index: 1;
+}
+.japan-banner::after {
+    content: ""; position: absolute; top: 50%; transform: translateY(-50%);
+    width: 290px; height: 290px; right: calc(10% - 5px); /* On centre l'anneau plus grand */
+    border-radius: 50%; z-index: 2; pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+/* SECTION DOUBLE PHOTO (LABORATOIRE) */
+.lab-grid {
+    display: flex;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.lab-item {
+    flex: 1;
+}
+
+.lab-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lab-caption {
+    margin-top: 20px;
+    text-align: center;
+    font-style: italic;
+    color: var(--text-dim);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .lab-grid { flex-direction: column; }
+    .lab-item img { height: 300px; }
+}
+
+/* BOUTON Stage Japon Expérience pro */
+
+/* 1. Le fond du bouton (Uniquement le dégradé) */
+.japan-card {
+    background: radial-gradient(circle at 75% 50%, #f0f4f8 40%, #5c7285 130%) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 2. Le calque de l'image (Main ORCA) isolé uniquement à gauche ! */
+.japan-card .overlay::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 60%; /* Ne prend que la partie gauche pour ne PAS polluer le drapeau */
+    background: url('img/orcahandremove.png') no-repeat left 35% center / auto 90%;
+    filter: blur(5px); /* Image floue par défaut */
+    transition: all 0.3s ease; /* Fluidité de l'animation */
+    z-index: -1; /* Derrière le texte */
+}
+
+/* 3. Défloutage de l'image ET du soleil au survol */
+.japan-card:hover .overlay::before {
+    filter: blur(0px);
+}
+.japan-card:hover::before { 
+    filter: blur(0px) !important; 
+}
+
+/* 4. Le Soleil Rouge (Ton code exact avec les bonnes couleurs) */
+.japan-card::before {
+    content: "" !important;
+    position: absolute !important;
+    background-image: none !important;
+    background-color: #bc002d !important;
+    width: 140px !important;
+    height: 140px !important;
+    top: 50% !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: 15% !important;
+    transform: translateY(-50%) !important;
+    border-radius: 50% !important;
+    filter: blur(4px) !important;
+    opacity: 1 !important;
+    z-index: 1 !important;
+    transition: all 0.3s ease !important;
+}
+
+/* 5. L'Anneau Néon (Ton code exact) */
+.japan-card::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: calc(15% - 5px);
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* 6. Le Texte (Ton code exact) */
+.japan-card .overlay { 
+    z-index: 10; 
+    background: linear-gradient(transparent 60%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* 7. SÉCURITÉ POUR LES TÉLÉPHONES (Mobile) */
+@media (max-width: 768px) {
+    .japan-card .overlay::before {
+        width: 100%; /* Sur téléphone, on autorise l'image à dépasser */
+        background-position: left 15% center;
+        background-size: auto 80%;
+    }
+}
+
+/* On désactive la vitre dépolie sur la carte Japon car elle gère déjà ses propres flous */
+.japan-card .overlay::after {
+    display: none;
+}
+
+/* ==========================================
+   THÈME "TRAIL & ENDURANCE" (Forest Dark Mode)
+   ========================================== */
+
+/* Variables spécifiques pour la page Trail */
+body.trail-theme {
+    background-color: #121a16; /* Vert forêt très sombre (presque noir) */
+    color: #e0e6ed;
+}
+
+/* On recolore les cartes et bordures pour l'ambiance forêt/roche */
+body.trail-theme .section-card,
+body.trail-theme .project-row {
+    background-color: #18241e; /* Vert forêt un peu plus clair pour les blocs */
+    border: 1px solid rgba(230, 126, 34, 0.15); /* Bordure discrète orange */
+}
+
+/* La couleur d'accentuation devient Terracotta (Orange Trail) */
+body.trail-theme h2,
+body.trail-theme .category-title,
+body.trail-theme .accent-text {
+    color: #e67e22; /* Orange Terracotta */
+}
+
+/* --- BANNIÈRE TRAIL --- */
+.trail-banner {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    /* Remplace 'img/fuji-banner.jpg' par ton image (Fuji ou montage de paysages) */
+    background-image: linear-gradient(to bottom, rgba(18, 26, 22, 0.3), rgba(18, 26, 22, 1)), url('img/panorama.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-bottom: 2px solid #e67e22;
+}
+
+.trail-banner h1 {
+    font-size: 3.5em;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(0,0,0,0.8);
+    margin-bottom: 10px;
+}
+
+.trail-banner .subtitle {
+    font-size: 1.5em;
+    color: #e67e22;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+/* --- STYLE DES MÉDIAS TRAIL (FORMAT 16:9 ET RÉPARTITION) --- */
+
+/* Modification de la place : Plus de place au média (60%), moins au texte (40%) */
+body.trail-theme .project-image {
+    flex: 1.5 !important; /* Élargit la zone de l'image/vidéo */
+}
+body.trail-theme .project-text {
+    flex: 1 !important; /* Réduit proportionnellement la zone de texte */
+}
+
+/* Application du format 16:9 sur l'image du Semi-Marathon */
+body.trail-theme .project-image img {
+    width: 100%;
+    aspect-ratio: 16 / 9 !important;
+    height: auto !important;
+    object-fit: cover;
+}
+
+/* Application du format 16:9 sur toutes les vidéos de la page */
+.trail-video {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Format vidéo standard parfait, rien ne sera coupé */
+    height: auto !important;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Grille spécifique pour l'entraînement (Vidéo + Photos) */
+.training-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+@media (max-width: 768px) {
+    .training-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================
+   PAGE COMPÉTENCES (FILTRES ET MODALES)
+   ========================================== */
+
+/* Menu de filtre */
+.filter-section { text-align: center; margin: 40px 0; }
+.filter-section label { font-size: 1.1em; margin-right: 15px; color: var(--text-dim); }
+.custom-select { background: var(--card-bg); color: var(--white); border: 1px solid var(--accent); padding: 10px 20px; border-radius: 8px; font-size: 1em; font-family: 'Inter', sans-serif; cursor: pointer; outline: none; }
+
+/* Grille des cartes (3 par ligne) */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.geii-header { 
+    grid-column: 1 / -1; 
+    display: none; /* Caché par défaut au premier chargement de la page */
+}
+
+/* Les petits blocs de compétences */
+.skill-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* FIX DU BUG DE TRI : On utilise grid à la place de flex pour centrer verticalement sans bloquer le display: none */
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 110px;
+    box-sizing: border-box;
+}
+.skill-card h3 { margin: 0; font-size: 1.1em; font-weight: 500; line-height: 1.4; }
+
+/* Survol par défaut : Lueur Bleu Cyan Électrique */
+.skill-card:hover {
+    border-color: #00f3ff;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Survol GEII : Actif uniquement si le filtre GEII est sélectionné */
+.skills-grid.geii-active .skill-card[data-color="red"]:hover { border-color: var(--skill-red); box-shadow: 0 0 15px rgba(231, 76, 60, 0.4); }
+.skills-grid.geii-active .skill-card[data-color="orange"]:hover { border-color: var(--skill-orange); box-shadow: 0 0 15px rgba(230, 126, 34, 0.4); }
+.skills-grid.geii-active .skill-card[data-color="yellow"]:hover { border-color: var(--skill-yellow); box-shadow: 0 0 15px rgba(241, 196, 15, 0.4); }
+.skills-grid.geii-active .skill-card[data-color="green"]:hover { border-color: var(--skill-green); box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
+
+
+/* --- FENÊTRE MODALE (POP-UP) --- */
+.modal-hidden {
+    display: none;
+}
+
+.modal-visible {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.6); /* Fond sombre */
+    backdrop-filter: blur(8px); /* Floute l'arrière-plan de la page */
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: var(--block-bg);
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    border-radius: 15px;
+    padding: 40px;
+    position: relative;
+    border: 1px solid var(--accent);
+    overflow-y: auto; /* Permet de scroller si beaucoup de texte */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px; right: 25px;
+    font-size: 2em;
+    color: var(--text-dim);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.close-btn:hover { color: var(--skill-red); }
+
+#modal-body ul { padding-left: 20px; }
+#modal-body li { margin-bottom: 10px; color: var(--text-dim); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Adaptation de la grille Compétences sur mobile */
+@media (max-width: 900px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .skills-grid { grid-template-columns: 1fr; }
+}
+
+/* Effet de survol sur le gros bouton de l'accueil */
+#home-skills .card-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+}
+
+.photo-banner-bg {
+    position: relative; /* Indispensable pour caler le bouton absolu tout en bas */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(15, 23, 42, 0.95)), url('img/enoshima.jpg');
+    background-size: cover;
+    background-position: center 55%; /* Permet de descendre ou monter légèrement le pont si besoin */
+}
+
+/* Rend le texte de description blanc pur et lisible */
+.photo-banner-bg .banner-text p {
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    font-weight: 500;
+}
+
+/* Positionne le bouton Insta pile au centre de la ligne du bas */
+.photo-banner-bg .btn-insta {
+    position: absolute;
+    bottom: -25px; /* Ajuste cette valeur selon la hauteur réelle du bouton pour le couper en deux */
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0; /* Annule la marge par défaut */
+    z-index: 10;   /* Passe par-dessus la bordure */
+}
+
+/* Ajustement précis de la hauteur pour le Robot Sumo */
+a[href="robotsumo.html"] {
+    background-position: center 35% !important;
+}
+
+/* Ajustement précis du robot sumo dans les lignes de projet */
+.project-image img[src*="robotsumo.jpg"] {
+    object-position: center 33%;
+}
+
+/* --- EFFET DE FLOU DE REPLI POUR LE KART À HÉLICES --- */
+/* 1. On prépare le conteneur de l'image du kart */
+.project-row .project-image:has(img[src*="kartahelice.jpg"]) {
+    position: relative;
+    background-image: url('img/kartahelice.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    border-radius: 10px;
+    height: 300px; /* Aligné sur la hauteur de tes autres projets */
+}
+
+/* 2. On applique le flou artistique sur l'arrière-plan */
+.project-row .project-image:has(img[src*="kartahelice.jpg"])::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: blur(12px) brightness(0.6); /* Ajuste le flou et assombrit légèrement l'arrière-plan */
+    transform: scale(1.1); /* Évite les bords blancs dus au flou */
+    z-index: 1;
+}
+
+/* 3. On force l'image du premier plan à s'afficher EN TIÈRE et sans déformation */
+.project-row .project-image img[src*="kartahelice.jpg"] {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Dézoome pour afficher 100% du kart */
+    z-index: 2; /* Passe devant le calque flouté */
+}

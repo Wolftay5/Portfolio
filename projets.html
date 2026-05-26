@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets | Gabin Leroy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="hamburger" class="hamburger">
+        <span></span><span></span><span></span>
+    </div>
+
+    <nav id="menu-links" class="menu-hidden">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos de moi</a></li>
+            <li><a href="stagejapon.html">Expérience Professionnelle</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="index.html#home-skills">Compétences GEII</a></li>
+            <li><a href="index.html#hobbies">Hobbies</a></li>
+        </ul>
+    </nav>
+
+    <header class="about-banner">
+        <h1>Projets Universitaires</h1>
+        <div class="banner-text">
+            <p>Retrouvez ici les réalisations techniques marquantes de mon parcours en GEII et en Robotique Autonome.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <h2 class="category-title">BUT GEII</h2>
+        
+        <section class="project-row">
+            <div class="project-image">
+                <img src="img/robotsumo.jpg" alt="Robot Mini-Sumo">
+            </div>
+            <div class="project-text">
+                <h3>Robot Mini-Sumo</h3>
+                <p>Conception d'un robot autonome capable de détecter et d'éjecter un adversaire d'un dohyo. Travail sur l'électronique de puissance, les capteurs infrarouges et la stratégie de combat en C++.</p>
+                <a href="robotsumo.html" class="btn-more">Détails du projet</a>
+            </div>
+        </section>
+
+        <section class="project-row reverse">
+            <div class="project-image">
+                <img src="img/kartahelice.jpg" alt="Kart à hélices">
+            </div>
+            <div class="project-text">
+                <h3>Kart à hélices</h3>
+                <p>Réalisation d'un véhicule propulsé par une hélice. Ce projet a permis d'étudier la mécanique des fluides, la motorisation brushless et le pilotage électronique de la poussée.</p>
+                <a href="kart.html" class="btn-more">Détails du projet</a>
+            </div>
+        </section>
+
+        <section class="project-row">
+            <div class="project-image">
+                <img src="img/radiogonio.jpg" alt="Radiogoniométrie">
+            </div>
+            <div class="project-text">
+                <h3>Projet Radiogoniométrie</h3>
+                <p>Étude et mise en œuvre d'un système permettant de déterminer la direction d'une source d'émission radio. Analyse de signaux et traitement d'antennes.</p>
+                <a href="radio.html" class="btn-more">Détails du projet</a>
+            </div>
+        </section>
+
+        <h2 class="category-title">DU Robotique Autonome</h2>
+
+        <section class="project-row">
+            <div class="project-image">
+                <img src="img/robot-holonome.jpg" alt="Robot Holonome">
+            </div>
+            <div class="project-text">
+                <h3>Robot Holonome Autonome</h3>
+                <p>Programmation d'un robot capable de se déplacer dans toutes les directions pour sortir d'un labyrinthe de manière autonome. Utilisation d'algorithmes de cartographie et d'évitement d'obstacles.</p>
+                <a href="robotholonome.html" class="btn-more">Détails du projet</a>
+            </div>
+        </section>
+
+        <section class="project-row reverse">
+            <div class="project-image">
+                <img src="img/robot-hand.jpg" alt="Main Robotique">
+            </div>
+            <div class="project-text">
+                <h3>Robotic Hand</h3>
+                <p>Contrôle d'une main robotique via un gant équipé de capteurs de flexion. Le système traduit les mouvements réels de la main en commandes précises pour les servomoteurs de la main artificielle.</p>
+                <a href="robotichand.html" class="btn-more">Détails du projet</a>
+            </div>
+        </section>
+
+        <h3 class="subcategory-title" style="margin-top: 80px;">Mini-Projets</h3>
+        <p style="color: var(--text-dim); margin-bottom: 30px;">Aperçu d'autres concepts techniques abordés lors de travaux pratiques et de recherches personnelles.</p>
+
+        <div class="grid-layout">
+            
+            <a href="dobotmagic.html" class="card-btn" style="background-image: url('img/dobotmagicianlite.png');">
+                <div class="overlay">
+                    <h3>Pick & Place : Dobot Magician Lite</h3>
+                    <p style="margin: 0; font-size: 0.9em; opacity: 0.9;">Automatisation, Pick & Place pneumatique et gestion des coordonnées spatiales.</p>
+                </div>
+            </a>
+
+            <a href="labyrinthresolv.html" class="card-btn" style="background-image: url('img/ia-labyrinthe.jpg');">
+                <div class="overlay">
+                    <h3>Résolution de Labyrinthe</h3>
+                    <p style="margin: 0; font-size: 0.9em; opacity: 0.9;">Exploration d'algorithmes de pathfinding (recherche de chemin) en environnement contraint.</p>
+                </div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <footer class="sticky-footer">
+        <div class="footer-content">
+            <p class="contact-intro">Si vous souhaitez me contacter :</p>
+            <div class="contact-links">
+                <span class="contact-mail"><strong>lgabin2006@gmail.com</strong></span>
+                <span class="separator">|</span>
+                <a href="https://www.linkedin.com/in/gabin-leroy-820791335" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

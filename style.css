@@ -630,3 +630,120 @@ a[href="robotsumo.html"] {
     object-fit: contain; /* Dézoome pour afficher 100% du kart */
     z-index: 2; /* Passe devant le calque flouté */
 }
+
+/* ==========================================
+   FIX COUPE IMAGE DE LA PARTIE 1 (VISION)
+   ========================================== */
+.project-image img[src*="rlandmark.jpg"] {
+    object-fit: contain; /* Affiche l'image de l'IA en entier sans la rogner */
+    background-color: #0c1622; /* Teinte sombre ajustée pour s'accorder au retour écran */
+}
+
+/* ==========================================
+   SYSTÈME DE GALERIE INTERACTIVE REVISITÉ
+   ========================================== */
+.peek-gallery {
+    display: flex;
+    width: 100%;
+    height: 320px;
+    border-radius: 10px;
+    overflow: hidden;
+    gap: 4px;
+    background-color: #ffffff; /* Fond blanc unifié : élimine définitivement les bandes noires latérales */
+    padding: 6px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.peek-card {
+    position: relative;
+    flex: 0.18; /* Réduction de l'espace par défaut des volets fermés */
+    height: 100%;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+/* Par défaut, la première image est ouverte */
+.peek-card:first-child {
+    flex: 2;
+}
+
+.peek-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Conserve l'intégralité du schéma, des flèches et du texte */
+    display: block;
+}
+
+/* ÉTIQUETTES DES VOLETS : Nettoyage complet des débordements textuels */
+.peek-card span {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background: rgba(15, 23, 42, 0.95);
+    color: #ffffff;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.8em;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0; /* Masqué par défaut sur les volets étroits pour éviter les coupures de mots */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Affichage de l'étiquette uniquement sur le volet actif ou survolé */
+.peek-card:first-child span,
+.peek-gallery .peek-card:hover span {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* COMPORTEMENT ÉLASTIQUE AU SURVOL (DESKTOP) */
+.peek-gallery:hover .peek-card {
+    flex: 0.15;
+}
+.peek-gallery .peek-card:hover {
+    flex: 2;
+}
+
+/* CONFIGURATION SPÉCIFIQUE DUO : Équilibre 50/50 pour la Partie 3 (Angles VS PWM) */
+.transparent-cards .peek-card {
+    flex: 1; /* Répartition égale au chargement de la page */
+}
+.transparent-cards:hover .peek-card {
+    flex: 0.2; /* Compression du volet non survolé */
+}
+.transparent-cards .peek-card:hover {
+    flex: 1.8; /* Expansion du volet survolé */
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+    .peek-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        height: auto;
+        gap: 8px;
+        background-color: transparent;
+        padding: 0;
+        border: none;
+    }
+    .peek-card, .peek-gallery:hover .peek-card, .peek-gallery .peek-card:hover {
+        flex: none;
+        height: 160px;
+        background-color: #ffffff;
+        border-radius: 6px;
+    }
+    .peek-card span {
+        opacity: 1;
+        font-size: 0.75em;
+        bottom: 8px;
+        transform: translateX(-50%) translateY(0);
+        padding: 4px 10px;
+    }
+}

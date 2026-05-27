@@ -23,59 +23,143 @@
     <header class="japan-banner">
         <h1>Stage au Japon</h1>
         <div class="banner-text">
-            <p>Immersion de 3 mois au sein d'un laboratoire de recherche à [Ville/Université].<br>
-            Une expérience humaine et technique inoubliable au pays du soleil levant.</p>
+            <p>Stage de 2 mois et demi au Togo Laboratory de l'Université des Électro-Communications (UEC) à Chōfu.<br>
+            Projet ORCA : Contrôle biomimétique par vision artificielle d'une main robotique à 16 degrés de liberté.</p>
         </div>
     </header>
 
     <main class="container">
         
+        <!-- SECTION CONTEXTE -->
         <section class="section-card">
-            <h2>Environnement de Travail</h2>
+            <h2>Environnement et Contexte de Recherche</h2>
+            <p>J'ai intégré le laboratoire du <strong>Pr. Togo</strong> à l'UEC de Chōfu, spécialisé dans l'étude de la biomécanique et du contrôle moteur humain. Mon travail sur le projet ORCA a répondu à un double enjeu décrit par mon maître de stage :</p>
+            
+            <div style="margin: 20px 0; padding-left: 15px; border-left: 4px solid var(--accent);">
+                <p><strong>• L'objectif ingénierie :</strong> Développer un système de téléopération fiable pour remplacer le travail manuel humain à distance (usines, environnements extrêmes ou dangereux). Ce dispositif permet également de collecter des bases de données de mouvements pour entraîner des IA d'actionnement.</p>
+                <p style="margin-top: 10px;"><strong>• L'objectif scientifique :</strong> Comprendre les mécanismes de la dextérité humaine. En comparant les mouvements d'une main robotique anthropomorphe (qui réplique la structure osseuse et articulaire humaine) avec ceux de la main réelle, le laboratoire cherche à identifier les écarts pour percer le secret de notre agilité.</p>
+            </div>
+
             <div class="lab-grid">
                 <div class="lab-item">
-                    <img src="img/togolab.jpg" alt="L'équipe et la salle de travail">
+                    <img src="img/togolab.jpg" alt="Mon espace de travail au Togo Lab">
                 </div>
                 <div class="lab-item">
                     <img src="img/plan_togolab.png" alt="Plan détaillé du laboratoire">
                 </div>
             </div>
             <div class="lab-caption">
-                <p>À gauche : Mon espace de travail et l'équipe de recherche. <br>
-                À droite : Organisation hiérarchique et plan du laboratoire (Noms en Kanji & Grades).</p>
+                <p>À gauche : L'équipe de recherche en salle de travail. À droite : Plan structurel du laboratoire.</p>
+            </div>
+
+            <div class="docs-container" style="margin-top: 30px;">
+                <a href="docs/Technical_Report_ORCA_LEROY_Gabin.pdf" target="_blank" class="btn-doc">
+                    📄 Télécharger le Rapport Technique (Anglais)
+                </a>
             </div>
         </section>
 
-        <h2 class="category-title">Projet de Recherche</h2>
+        <h2 class="category-title">Vulgarisation Technique (Démarche Ingénieur)</h2>
 
+        <!-- PARTIE 1 : VISION -->
         <section class="project-row">
             <div class="project-image">
-                <img src="img/japon-tech-1.jpg" alt="Partie technique 1">
+                <img src="img/rlandmark.jpg" alt="Suivi de la main via MediaPipe">
             </div>
             <div class="project-text">
-                <h3>Contexte et Objectifs</h3>
-                <p>Explique ici la problématique sur laquelle tu as travaillé. Pourquoi ce projet était-il important pour le laboratoire ?</p>
+                <h3>1. Acquisition Visuelle et Suivi IA</h3>
+                <p><strong>Contrainte :</strong> Capter les mouvements de l'opérateur sans l'équiper de capteurs physiques contraignants, tout en évitant de surcharger le processeur du Raspberry Pi 5.</p>
+                <p><strong>Solution :</strong> Utilisation d'une caméra spatiale <strong>OAK-D Lite</strong> dont le processeur interne gère le redimensionnement matériel des images. Le flux optimisé est envoyé au framework <strong>MediaPipe</strong> qui extrait instantanément un squelette virtuel en 3D composé de 21 repères numériques.</p>
+                <p><strong>Résultat :</strong> Un tracking fluide à haute fréquence qui s'exécute localement sans ralentir l'ordinateur central.</p>
             </div>
         </section>
 
+        <!-- PARTIE 2 : Cinématique -->
         <section class="project-row reverse">
             <div class="project-image">
-                <img src="img/japon-tech-2.jpg" alt="Partie technique 2">
+                <div class="peek-gallery">
+                    <div class="peek-card">
+                        <img src="img/flex1land.png" alt="Vecteurs Flexion Proximale">
+                        <span>Flexion Proximale</span>
+                    </div>
+                    <div class="peek-card">
+                        <img src="img/flex2land.png" alt="Vecteurs Flexion Distale">
+                        <span>Flexion Distale</span>
+                    </div>
+                    <div class="peek-card">
+                        <img src="img/abductionland.png" alt="Vecteurs Abduction">
+                        <span>Écartement Latéral</span>
+                    </div>
+                    <div class="peek-card">
+                        <img src="img/oppositionland.png" alt="Vecteurs Opposition">
+                        <span>Opposition du Pouce</span>
+                    </div>
+                </div>
             </div>
             <div class="project-text">
-                <h3>Méthodologie et Réalisations</h3>
-                <p>Détaille tes missions : programmation, tests, utilisation de matériels spécifiques. C'est ici que tu montres ton savoir-faire GEII.</p>
+                <h3>2. Modélisation Cinématique Vectorielle</h3>
+                <p><strong>Contrainte :</strong> Transformer des repères de pixels de coordonnées spatiales abstraites en valeurs d'angles géométriques applicables à des articulations mécaniques.</p>
+                <p><strong>Solution :</strong> Analyse géométrique directe par calcul vectoriel. À partir des landmarks fournis par l'IA, le script génère des vecteurs directionnels pour chaque phalange. L'angle exact de chaque articulation est isolé en appliquant la formule mathématique du produit scalaire.</p>
+                <p><strong>Résultat :</strong> Un modèle mathématique complet capable de quantifier les flexions, les écartements latéraux (abductions) et l'opposition du pouce.</p>
             </div>
         </section>
 
+        <!-- PARTIE 3 : Normalisation -->
         <section class="project-row">
             <div class="project-image">
-                <img src="img/japon-bilan.jpg" alt="Bilan">
+                <div class="peek-gallery transparent-cards">
+                    <div class="peek-card">
+                        <img src="img/schemaangle.png" alt="Limites des angles biomécaniques théoriques">
+                        <span>Limites Articulaires (Degrés)</span>
+                    </div>
+                    <div class="peek-card">
+                        <img src="img/schemapwm.png" alt="Limites des registres PWM étalonnés">
+                        <span>Signaux de Commande (PWM)</span>
+                    </div>
+                </div>
             </div>
             <div class="project-text">
-                <h3>Bilan et Apports</h3>
-                <p>Qu'as-tu appris ? Que ce soit sur le plan technique (nouvelles technologies) ou culturel (travail en milieu international, rigueur japonaise).</p>
+                <h3>3. Traitement du Signal et Normalisation</h3>
+                <p><strong>Contrainte :</strong> Les micro-oscillations naturelles du flux de la caméra provoquent un sautillement continu des moteurs (jitter), entraînant surchauffe et usure mécanique.</p>
+                <p><strong>Solution :</strong> Implémentation d'un <strong>filtre de zone morte (Deadband Filter)</strong> de 3° : la position du moteur n'est mise à jour que si le mouvement humain dépasse ce seuil. Ensuite, les angles théoriques sont traduits en registres de commande 12-bit (PWM) via une interpolation linéaire qui gère les inversions physiques dues au montage des servomoteurs.</p>
+                <p><strong>Résultat :</strong> Stabilisation totale des actionneurs et protection des limites mécaniques de la structure.</p>
             </div>
+        </section>
+
+        <!-- PARTIE 4 : ACTIONNEMENT MÉCANIQUE -->
+        <section class="project-row reverse">
+            <div class="project-image">
+                <img src="img/pullsystem.jpg" alt="Système de poulies antagonistes">
+            </div>
+            <div class="project-text">
+                <h3>4. Actionnement Mécanique et Gestion de Puissance</h3>
+                <p><strong>Contrainte :</strong> Piloter 16 servomoteurs MG90D en simultané. L'appel de courant massif au démarrage de plusieurs moteurs coupait instantanément la sécurité de la batterie.</p>
+                <p><strong>Solution :</strong> Transmission mécanique par câbles (tendons) montés en configuration antagoniste push-pull. Pour lisser la demande d'énergie, le firmware du microcontrôleur <strong>Teensy</strong> applique un <strong>délai de cascade de 2 ms</strong> entre l'envoi des commandes I2C à chaque canal du driver PCA9685.</p>
+                <p><strong>Résultat :</strong> Amortissement des pics d'intensité électrique, permettant l'utilisation stable du robot sur batterie.</p>
+            </div>
+        </section>
+
+        <!-- VALIDATION ET RÉSULTATS -->
+        <section class="project-row">
+            <div class="project-image">
+                <video class="trail-video" controls poster="img/japon-validation.jpg">
+                    <source src="video/orca-demo.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+            </div>
+            <div class="project-text">
+                <h3>Validation Expérimentale et Résultats</h3>
+                <p>Les tests de postures (main ouverte, poing fermé, signe de victoire, pince avec le pouce) ont validé la réactivité et la précision du système de téléopération. Le temps de latence entre le mouvement humain et la réplication mécanique est imperceptible, confirmant l'efficacité du traitement sur cible embarquée.</p>
+            </div>
+        </section>
+
+        <!-- BILAN ET REMERCIEMENTS -->
+        <section class="section-card">
+            <h2>Bilan de l'Expérience</h2>
+            <p>Ce stage au Japon a validé mes compétences en programmation (Python, C++), en traitement du signal et en gestion de puissance électronique au sein d'un projet de recherche international. Cette immersion m'a également permis d'adopter la rigueur de travail propre aux ingénieurs japonais et de pratiquer l'anglais technique quotidiennement.</p>
+            
+            <h3 style="color: var(--accent); margin-top: 25px; font-size: 1.2em;">Remerciements</h3>
+            <p style="font-size: 0.95em; color: var(--text-dim); line-height: 1.5;">Je remercie chaleureusement le <strong>Pr. Togo</strong> pour m'avoir accueilli au sein de son laboratoire et m'avoir accordé sa confiance, ainsi que l'ensemble des étudiants chercheurs du Togo Lab pour leur intégration et leur aide technique. Je tiens également à exprimer ma gratitude envers les responsables de formation du BUT GEII de l'IUT de Bordeaux qui ont soutenu et encadré la réalisation de cette mobility internationale.</p>
         </section>
 
     </main>

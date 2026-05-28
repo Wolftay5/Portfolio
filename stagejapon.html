@@ -30,7 +30,6 @@
 
     <main class="container">
         
-        <!-- SECTION CONTEXTE -->
         <section class="section-card">
             <h2>Environnement et Contexte de Recherche</h2>
             <p>J'ai intégré le laboratoire du <strong>Pr. Togo</strong> à l'UEC de Chōfu, spécialisé dans l'étude de la biomécanique et du contrôle moteur humain. Mon travail sur le projet ORCA a répondu à un double enjeu décrit par mon maître de stage :</p>
@@ -61,20 +60,18 @@
 
         <h2 class="category-title">Vulgarisation Technique (Démarche Ingénieur)</h2>
 
-        <!-- PARTIE 1 : VISION -->
         <section class="project-row">
             <div class="project-image">
                 <img src="img/rlandmark.jpg" alt="Suivi de la main via MediaPipe">
             </div>
             <div class="project-text">
                 <h3>1. Acquisition Visuelle et Suivi IA</h3>
-                <p><strong>Contrainte :</strong> Capter les mouvements de l'opérateur sans l'équiper de capteurs physiques contraignants, tout en évitant de surcharger le processeur du Raspberry Pi 5.</p>
-                <p><strong>Solution :</strong> Utilisation d'une caméra spatiale <strong>OAK-D Lite</strong> dont le processeur interne gère le redimensionnement matériel des images. Le flux optimisé est envoyé au framework <strong>MediaPipe</strong> qui extrait instantanément un squelette virtuel en 3D composé de 21 repères numériques.</p>
-                <p><strong>Résultat :</strong> Un tracking fluide à haute fréquence qui s'exécute localement sans ralentir l'ordinateur central.</p>
+                <p><strong>Contrainte :</strong> Capter les mouvements de l'opérateur de manière fluide sans l'équiper de capteurs physiques contraignants. Sur le plan technique, la difficulté majeure a été de réussir à faire reconnaître et exploiter correctement la caméra 3D sur le Raspberry Pi 5 face à des problèmes de compatibilité.</p>
+                <p><strong>Solution :</strong> J'ai dû appréhender et utiliser la bibliothèque spécifique <strong>DepthAI</strong> pour configurer la caméra spatiale OAK-D Lite. Elle gère le traitement d'image en interne et envoie un flux optimisé au framework <strong>MediaPipe</strong>, qui extrait instantanément un squelette virtuel en 3D composé de 21 repères spatiaux.</p>
+                <p><strong>Résultat :</strong> Un suivi visuel fluide à haute fréquence qui fonctionne de manière autonome sur la carte, sans avoir besoin d'un ordinateur externe puissant.</p>
             </div>
         </section>
 
-        <!-- PARTIE 2 : Cinématique -->
         <section class="project-row reverse">
             <div class="project-image">
                 <div class="peek-gallery">
@@ -98,13 +95,12 @@
             </div>
             <div class="project-text">
                 <h3>2. Modélisation Cinématique Vectorielle</h3>
-                <p><strong>Contrainte :</strong> Transformer des repères de pixels de coordonnées spatiales abstraites en valeurs d'angles géométriques applicables à des articulations mécaniques.</p>
-                <p><strong>Solution :</strong> Analyse géométrique directe par calcul vectoriel. À partir des landmarks fournis par l'IA, le script génère des vecteurs directionnels pour chaque phalange. L'angle exact de chaque articulation est isolé en appliquant la formule mathématique du produit scalaire.</p>
-                <p><strong>Résultat :</strong> Un modèle mathématique complet capable de quantifier les flexions, les écartements latéraux (abductions) et l'opposition du pouce.</p>
+                <p><strong>Contrainte :</strong> Il fallait transformer les simples coordonnées de pixels fournies par la caméra en angles géométriques précis, applicables à des articulations mécaniques.</p>
+                <p><strong>Solution :</strong> J'ai développé une analyse géométrique par calcul vectoriel. À partir des repères spatiaux de l'IA, le script génère des vecteurs pour chaque phalange. L'angle exact de chaque articulation est ensuite calculé mathématiquement (via le produit scalaire).</p>
+                <p><strong>Résultat :</strong> Un modèle mathématique capable de quantifier en temps réel les flexions, les écartements latéraux et l'opposition du pouce humain.</p>
             </div>
         </section>
 
-        <!-- PARTIE 3 : Normalisation -->
         <section class="project-row">
             <div class="project-image">
                 <div class="peek-gallery transparent-cards">
@@ -120,46 +116,44 @@
             </div>
             <div class="project-text">
                 <h3>3. Traitement du Signal et Normalisation</h3>
-                <p><strong>Contrainte :</strong> Les micro-oscillations naturelles du flux de la caméra provoquent un sautillement continu des moteurs (jitter), entraînant surchauffe et usure mécanique.</p>
-                <p><strong>Solution :</strong> Implémentation d'un <strong>filtre de zone morte (Deadband Filter)</strong> de 3° : la position du moteur n'est mise à jour que si le mouvement humain dépasse ce seuil. Ensuite, les angles théoriques sont traduits en registres de commande 12-bit (PWM) via une interpolation linéaire qui gère les inversions physiques dues au montage des servomoteurs.</p>
-                <p><strong>Résultat :</strong> Stabilisation totale des actionneurs et protection des limites mécaniques de la structure.</p>
+                <p><strong>Contrainte :</strong> Les servomoteurs ne comprennent pas les "degrés géométriques", ils ont besoin d'un signal électrique précis. De plus, les micro-tremblements de l'IA faisaient vibrer les moteurs en permanence, risquant de les casser.</p>
+                <p><strong>Solution :</strong> J'ai d'abord implémenté un filtre informatique (zone morte de 3°) qui bloque les tremblements parasites. Ensuite, j'ai mené des tests empiriques sur chaque doigt pour déterminer ses limites mécaniques, ce qui m'a permis de convertir proportionnellement les angles théoriques en signaux de commande réels (PWM).</p>
+                <p><strong>Résultat :</strong> Une traduction fiable des mouvements et une stabilisation totale des actionneurs qui protège la structure du robot.</p>
             </div>
         </section>
 
-        <!-- PARTIE 4 : ACTIONNEMENT MÉCANIQUE -->
         <section class="project-row reverse">
             <div class="project-image">
                 <img src="img/pullsystem.jpg" alt="Système de poulies antagonistes">
             </div>
             <div class="project-text">
-                <h3>4. Actionnement Mécanique et Gestion de Puissance</h3>
-                <p><strong>Contrainte :</strong> Piloter 16 servomoteurs MG90D en simultané. L'appel de courant massif au démarrage de plusieurs moteurs coupait instantanément la sécurité de la batterie.</p>
-                <p><strong>Solution :</strong> Transmission mécanique par câbles (tendons) montés en configuration antagoniste push-pull. Pour lisser la demande d'énergie, le firmware du microcontrôleur <strong>Teensy</strong> applique un <strong>délai de cascade de 2 ms</strong> entre l'envoi des commandes I2C à chaque canal du driver PCA9685.</p>
-                <p><strong>Résultat :</strong> Amortissement des pics d'intensité électrique, permettant l'utilisation stable du robot sur batterie.</p>
+                <h3>4. Actionnement Mécanique et Énergie</h3>
+                <p><strong>Contrainte :</strong> Piloter 16 moteurs en simultané demandait trop d'énergie. L'appel de courant massif au démarrage coupait instantanément la sécurité de la batterie.</p>
+                <p><strong>Solution :</strong> Comme illustré sur le schéma technique, les doigts sont actionnés par un système de câbles antagonistes liés aux moteurs (un câble se tend pendant que l'autre se relâche). Pour éviter les coupures de batterie, j'ai programmé dans le microcontrôleur un délai invisible de 2 millisecondes entre l'activation de chaque moteur.</p>
+                <p><strong>Résultat :</strong> Les pics de consommation électrique sont lissés, ce qui permet au système de fonctionner de manière autonome sur batterie de manière sécurisée.</p>
             </div>
         </section>
 
-        <!-- VALIDATION ET RÉSULTATS -->
         <section class="project-row">
             <div class="project-image">
                 <video class="trail-video" controls poster="img/japon-validation.jpg">
-                    <source src="video/orca-demo.mp4" type="video/mp4">
+                    <source src="video/orcahandprojet.mp4" type="video/mp4">
                     Votre navigateur ne supporte pas la lecture de vidéos.
                 </video>
             </div>
             <div class="project-text">
-                <h3>Validation Expérimentale et Résultats</h3>
-                <p>Les tests de postures (main ouverte, poing fermé, signe de victoire, pince avec le pouce) ont validé la réactivité et la précision du système de téléopération. Le temps de latence entre le mouvement humain et la réplication mécanique est imperceptible, confirmant l'efficacité du traitement sur cible embarquée.</p>
+                <h3>Validation Expérimentale</h3>
+                <p>Les tests de différentes postures (main ouverte, poing fermé, signe de victoire, pince avec le pouce) ont validé la réactivité du système de téléopération. Le temps de latence entre le mouvement humain et la réplication mécanique est imperceptible, ce qui valide l'efficacité du code exécuté sur le système embarqué.</p>
             </div>
         </section>
 
-        <!-- BILAN ET REMERCIEMENTS -->
         <section class="section-card">
             <h2>Bilan de l'Expérience</h2>
-            <p>Ce stage au Japon a validé mes compétences en programmation (Python, C++), en traitement du signal et en gestion de puissance électronique au sein d'un projet de recherche international. Cette immersion m'a également permis d'adopter la rigueur de travail propre aux ingénieurs japonais et de pratiquer l'anglais technique quotidiennement.</p>
+            <p>Ce stage a consolidé mes compétences techniques (Python, C++, traitement du signal) mais a surtout été une épreuve d'autonomie. Face à des problèmes imprévus de compatibilité de versions logicielles sur la caméra 3D, j'ai dû faire preuve de patience et de persévérance pour trouver des solutions par moi-même.</p>
+            <p>Vivre et travailler seul durant deux mois et demi à l'étranger m'a demandé une grande rigueur d'organisation, tant dans la gestion de mon emploi du temps au laboratoire que dans ma réactivité professionnelle avec les chercheurs. J'ai également pu m'adapter à un environnement académique de recherche, tout en communiquant au quotidien en anglais.</p>
             
             <h3 style="color: var(--accent); margin-top: 25px; font-size: 1.2em;">Remerciements</h3>
-            <p style="font-size: 0.95em; color: var(--text-dim); line-height: 1.5;">Je remercie chaleureusement le <strong>Pr. Togo</strong> pour m'avoir accueilli au sein de son laboratoire et m'avoir accordé sa confiance, ainsi que l'ensemble des étudiants chercheurs du Togo Lab pour leur intégration et leur aide technique. Je tiens également à exprimer ma gratitude envers les responsables de formation du BUT GEII de l'IUT de Bordeaux qui ont soutenu et encadré la réalisation de cette mobility internationale.</p>
+            <p style="font-size: 0.95em; color: var(--text-dim); line-height: 1.5;">Je remercie chaleureusement le <strong>Pr. Togo</strong> pour m'avoir accueilli au sein de son laboratoire de recherche et m'avoir accordé sa confiance, ainsi que l'ensemble des étudiants chercheurs pour leur accueil. Je tiens également à exprimer ma gratitude envers les responsables de formation du BUT GEII de l'IUT de Bordeaux qui ont soutenu et encadré la réalisation de ce stage.</p>
         </section>
 
     </main>

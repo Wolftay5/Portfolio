@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails Projet | Gabin Leroy</title>
+    <title>Pick & Place | Gabin Leroy</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,48 +18,40 @@
             <li><a href="about.html">À propos de moi</a></li>
             <li><a href="stagejapon.html">Expérience Professionnelle</a></li>
             <li><a href="projets.html">Projets</a></li>
-            <li><a href="index.html#home-skills">Compétences GEII</a></li>
+            <li><a href="competences.html">Compétences</a></li>
             <li><a href="index.html#hobbies">Hobbies</a></li>
         </ul>
     </nav>
 
-    <header class="about-banner">
-        <h1>Pick & Place : Dobot Magician Lite</h1>
+    <header class="about-banner" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(15, 23, 42, 0.95)), url('img/dobotmagicianlite.png'); background-size: cover; background-position: center; border-bottom: 2px solid var(--accent);">
+        <h1 style="color: var(--white); text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);">Pick & Place : Dobot Magician Lite</h1>
         <div class="banner-text">
-            <p>Conception d'un robot autonome en équipe. Mon rôle s'est concentré sur la programmation C++ et l'intégration des capteurs infrarouges.</p>
+            <p style="color: var(--white); text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8); font-weight: 500;">Automatisation d'une tâche de manipulation industrielle et gestion des coordonnées spatiales d'un bras robotique articulé.</p>
         </div>
     </header>
 
     <main class="container">
         
-        <section class="project-row">
-            <div class="project-image">
-                <img src="img/details-sumo-1.jpg" alt="Conception du Mini-Sumo">
-            </div>
-            <div class="project-text">
-                <h3>Conception Électronique</h3>
-                <p>Ici, tu peux détailler tes choix techniques. Par exemple : le routage sur Altium Designer, le choix des motoréducteurs, et la gestion de l'alimentation par batterie Li-Po.</p>
-            </div>
+        <section class="section-card" style="margin-top: 40px;">
+            <h3 style="font-size: 1.8em; margin-bottom: 20px; color: var(--accent);">Changement de Repère et Optimisation du Code</h3>
+            
+            <p>L’objectif de ce projet était de programmer un bras articulé pour effectuer des cycles automatisés de déplacement de pièces à l'aide d'une ventouse pneumatique.</p>
+            
+            <p>Le cœur du travail logiciel a consisté à manipuler sous Python des <strong>matrices de transformation homogène 4x4</strong>. Derrière ce nom technique se cachent simplement des tableaux de calculs mathématiques qui fusionnent la rotation et le déplacement dans l'espace. En m'appuyant sur la documentation du constructeur pour obtenir les dimensions exactes du bras, ces matrices ont permis de calculer précisément le changement de repère entre la base fixe du robot et son outil (l'extrémité de la ventouse) afin de viser juste.</p>
+            
+            <p>Pour la trajectoire, nous utilisions le logiciel de simulation RoboDK pour générer le code machine finale. Cependant, dès que le cycle demandait un enchaînement de mouvements trop important, le logiciel refusait de générer le programme. Pour contourner ce blocage, j'ai utilisé RoboDK uniquement pour générer les blocs de mouvements simples dont j'avais besoin. J'ai ensuite récupéré ces morceaux de code pour les assembler, les structurer et les automatiser manuellement avec des boucles directement dans le fichier final. Cette méthode m'a permis de m'affranchir des limites du logiciel et de programmer autant de mouvements que nécessaire.</p>
         </section>
 
         <section class="project-row reverse">
             <div class="project-image">
-                <img src="img/details-sumo-2.jpg" alt="Programmation du Mini-Sumo">
+                <video class="trail-video" autoplay loop muted playsinline controls>
+                    <source src="video/pickplacedobot.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
             </div>
             <div class="project-text">
-                <h3>Développement C++</h3>
-                <p>Explication de l'algorithme : comment le robot détecte la ligne blanche du dohyo pour ne pas tomber, et comment il repère l'adversaire pour attaquer.</p>
-            </div>
-        </section>
-
-        <section class="section-card">
-            <h2>Documents Techniques</h2>
-            <p>Retrouvez ci-dessous les dossiers officiels liés à l'avancement et à la validation du projet Mini-Sumo.</p>
-            
-            <div class="docs-container">
-                <a href="assets/DDC_Sumo.pdf" download class="btn-doc">📥 Dossier de Conception</a>
-                <a href="assets/DDF_Sumo.pdf" download class="btn-doc">📥 Dossier de Fabrication</a>
-                <a href="assets/DDV_Sumo.pdf" download class="btn-doc">📥 Dossier de Validation</a>
+                <h3>Démonstration du Cycle</h3>
+                <p>La validation finale montre le bras robotique exécutant ses trajectoires de manière fluide et répétitive, activant la dépression de la ventouse pour saisir et déplacer les objets sans aucune collision.</p>
             </div>
         </section>
 

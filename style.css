@@ -747,3 +747,130 @@ a[href="robotsumo.html"] {
         padding: 4px 10px;
     }
 }
+
+/* ==========================================
+   FIX D'AFFICHAGE DU ROBOT HOLONOME (THÉSÉE)
+   ========================================== */
+
+/* 1. Page d'accueil (index.html) : Image nette en plein écran (Style Sumo) */
+a[href="robotholonome.html"].card-btn {
+    background-image: url('img/robotholonome.png');
+    background-size: cover;
+    background-position: center 30%; /* Ajuste le centrage vertical du robot */
+}
+/* Désactivation des anciens calques de flou latéraux */
+a[href="robotholonome.html"].card-btn::before,
+a[href="robotholonome.html"].card-btn::after {
+    display: none;
+}
+
+/* 2. Page catalogue (projets.html) : On garde ton effet de repli qui fonctionne bien */
+.project-row .project-image:has(img[src*="robotholonome.png"]) {
+    position: relative;
+    background-image: url('img/robotholonome.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    border-radius: 10px;
+    height: 300px;
+}
+.project-row .project-image:has(img[src*="robotholonome.png"])::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: blur(12px) brightness(0.5);
+    transform: scale(1.1);
+    z-index: 1;
+}
+.project-row .project-image img[src*="robotholonome.png"] {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 2;
+}
+
+/* ===================================================
+   TEST OPTION 1 : MESH GRADIENT "AURORA" ÉPURÉ
+   =================================================== */
+.about-banner.thisee-banner-bg {
+    position: relative;
+    background: #02060c;
+    
+    /* Le fond coloré Aurora */
+    background-image: 
+        radial-gradient(at 100% 0%, #0d2b45 0px, transparent 55%),
+        radial-gradient(at 80% 100%, #113f59 0px, transparent 55%),
+        radial-gradient(at 40% 50%, #051321 0px, transparent 80%);
+        
+    overflow: hidden;
+    padding: 80px 0;
+    text-align: left;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--accent);
+}
+
+/* 1. ON DESACTIVE COMPLETEMENT LA GRILLE POUR DE GACHER LE DEGRADE */
+.about-banner.thisee-banner-bg::before {
+    display: none;
+}
+
+/* Le texte à gauche reste posé normalement */
+.about-banner.thisee-banner-bg .container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.about-banner.thisee-banner-bg .banner-text {
+    margin: 0; padding: 0;
+    max-width: 55%;
+}
+
+/* Le robot net à droite */
+.about-banner.thisee-banner-bg::after {
+    content: "";
+    position: absolute;
+    top: 20px; right: 8%; bottom: 20px;
+    width: 35%;
+    background-image: url('img/robotholonomerem.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+    filter: drop-shadow(0 0 15px rgba(165, 216, 255, 0.15));
+}
+
+/* Version Mobile */
+@media (max-width: 768px) {
+    .about-banner.thisee-banner-bg { text-align: center; padding: 40px 0; background-image: radial-gradient(circle at 50% 80%, #0d2b45 0%, #02060c 70%); }
+    .about-banner.thisee-banner-bg::after { position: relative; display: block; width: 100%; height: 200px; right: 0; margin-top: 25px; }
+    .about-banner.thisee-banner-bg .container { align-items: center; }
+    .about-banner.thisee-banner-bg .banner-text { max-width: 100%; }
+}
+
+/* ==========================================
+   FIX D'AFFICHAGE POUR LE SCHÉMA LIDAR
+   ========================================== */
+.project-image img[src*="lidarhol.png"] {
+    object-fit: contain; /* Indispensable : affiche 100% du schéma et du texte sans coupure */
+    background-color: #efedea; /* Assure un raccord parfait avec la couleur beige de ton image */
+    padding: 15px; /* Donne un peu d'air pour que les textes ne collent pas aux bords */
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   FIX D'AFFICHAGE POUR LES SCHÉMAS (LIDAR & ALGO)
+   ========================================== */
+.project-image img[src*="lidarhol.png"],
+.project-image img[src*="algohol.jpg"] {
+    object-fit: contain; /* Affiche 100% du schéma et du texte sans coupure */
+    background-color: #efedea; /* Raccord avec la couleur de fond de tes images */
+    padding: 15px;
+    box-sizing: border-box;
+}

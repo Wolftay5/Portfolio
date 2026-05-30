@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails Projet | Gabin Leroy</title>
+    <title>Robot Holonome | Gabin Leroy</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,43 +23,76 @@
         </ul>
     </nav>
 
-    <header class="about-banner">
-        <h1>Robot Holonome Autonome</h1>
-        <div class="banner-text">
-            <p>Conception d'un robot autonome en équipe. Mon rôle s'est concentré sur la programmation C++ et l'intégration des capteurs infrarouges.</p>
+    <header class="about-banner thisee-banner-bg">
+        <div class="container">
+            <h1 style="color: var(--white); text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);">Robot Holonome Autonome : Thésée</h1>
+            <div class="banner-text">
+                <p style="color: #ffffff; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9); font-weight: 500;">Conception d'un robot autonome capable de sortir d'un labyrinthe. Travail en équipe avec une spécialisation sur l'architecture logicielle et le traitement LiDAR.</p>
+            </div>
         </div>
     </header>
 
     <main class="container">
         
+        <section class="section-card">
+            <h2 style="color: var(--accent);">Architecture et Répartition</h2>
+            <p>Le projet <strong>THÉSÉE</strong> a été mené en équipe de quatre étudiants. Nous nous sommes répartis en deux binômes : l'un s'occupait de la partie mécanique (châssis, montage) et l'autre de la partie informatique, dont je faisais partie.</p>
+            <p>Le robot utilise une carte <strong>Raspberry Pi</strong> comme cerveau central, un capteur <strong>LiDAR</strong> pour cartographier l'espace en 2D, et 4 roues spéciales (Mecanum) entraînées par des servomoteurs <strong>Dynamixel AX-12A</strong>, le tout sur batterie LiPo. Ces roues permettent au robot de se déplacer instantanément dans toutes les directions (en avant, en arrière ou en glissement latéral) sans avoir à pivoter sur lui-même.</p>
+        </section>
+
+        <h2 class="category-title">Développement Logiciel</h2>
+
         <section class="project-row">
             <div class="project-image">
-                <img src="img/details-sumo-1.jpg" alt="Conception du Mini-Sumo">
+                <video class="trail-video" autoplay loop muted playsinline controls>
+                    <source src="video/servoholonome.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
             </div>
             <div class="project-text">
-                <h3>Conception Électronique</h3>
-                <p>Ici, tu peux détailler tes choix techniques. Par exemple : le routage sur Altium Designer, le choix des motoréducteurs, et la gestion de l'alimentation par batterie Li-Po.</p>
+                <h3>1. Pilotage des Roues Mecanum</h3>
+                <p><strong>Contrainte :</strong> Exploiter la cinématique mécanique des roues Mecanum pour faire bouger le robot sur n'importe quel axe.</p>
+                <p><strong>Solution :</strong> Nous avons codé la logique directionnelle en associant le sens de rotation des 4 moteurs pour réaliser <strong>8 déplacements distincts</strong> (marche avant/arrière, glissements latéraux et pivots). Ce code a été structuré dans une bibliothèque Python sous forme de fonctions clés.</p>
+                <p><strong>Résultat :</strong> Un script clair et optimisé qui permet à l'algorithme principal de déclencher des déplacements multidirectionnels en une seule ligne de code.</p>
             </div>
         </section>
 
         <section class="project-row reverse">
             <div class="project-image">
-                <img src="img/details-sumo-2.jpg" alt="Programmation du Mini-Sumo">
+                <img src="img/lidarhol.png" alt="Schéma des 8 directions de détection LiDAR">
             </div>
             <div class="project-text">
-                <h3>Développement C++</h3>
-                <p>Explication de l'algorithme : comment le robot détecte la ligne blanche du dohyo pour ne pas tomber, et comment il repère l'adversaire pour attaquer.</p>
+                <h3>2. Traitement des données du LiDAR</h3>
+                <p><strong>Contrainte :</strong> Le LiDAR tourne en continu et renvoie des centaines de distances par seconde. Il fallait isoler la présence des murs sans ralentir le reste du programme.</p>
+                <p><strong>Solution :</strong> Nous avons créé un programme en arrière-plan (une coroutine). Il découpe l'environnement en 8 directions (Nord, Sud, Est, Ouest et diagonales). Pour chacune d'elles, le LiDAR scanne une zone de 10 degrés. Si au moins 5 points mesurent la même distance, le robot valide la présence d'un mur solide.</p>
+                <p><strong>Résultat :</strong> Une détection de l'environnement mise à jour en temps réel qui filtre automatiquement les fausses mesures du capteur.</p>
             </div>
         </section>
 
-        <section class="section-card">
-            <h2>Documents Techniques</h2>
-            <p>Retrouvez ci-dessous les dossiers officiels liés à l'avancement et à la validation du projet Mini-Sumo.</p>
-            
-            <div class="docs-container">
-                <a href="assets/DDC_Sumo.pdf" download class="btn-doc">📥 Dossier de Conception</a>
-                <a href="assets/DDF_Sumo.pdf" download class="btn-doc">📥 Dossier de Fabrication</a>
-                <a href="assets/DDV_Sumo.pdf" download class="btn-doc">📥 Dossier de Validation</a>
+        <section class="project-row">
+            <div class="project-image">
+                <img src="img/algohol.jpg" alt="Infographie de l'ordre de priorité des situations">
+            </div>
+            <div class="project-text">
+                <h3>3. Résolution du Labyrinthe</h3>
+                <p><strong>Contrainte :</strong> Rendre le robot capable de naviguer seul dans un labyrinthe à angles droits jusqu'à trouver la sortie.</p>
+                <p><strong>Solution :</strong> Nous avons appliqué la logique du "suivi du mur de droite". Pour l'exécuter, le code vérifie en boucle la distance des murs et détermine la situation du robot selon un ordre de priorité strict : <em>Détection de la sortie ? Sinon Cul-de-sac ? Sinon Virage ?</em> Dès qu'une situation est validée, le robot applique le bon mouvement et ajuste sa trajectoire par rapport aux parois.</p>
+                <p><strong>Résultat :</strong> Une logique décisionnelle simple et efficace pour explorer et sortir d'un labyrinthe de manière autonome.</p>
+            </div>
+        </section>
+
+        <section class="project-row reverse" style="margin-top: 60px;">
+            <div class="project-image">
+                <video class="trail-video" autoplay loop muted playsinline controls>
+                    <source src="video/resulthol.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+            </div>
+            <div class="project-text">
+                <h3>Intégration et Tests en Conditions Réelles</h3>
+                <p>La phase d'intégration a rapidement mis en évidence l'écart entre la simulation et la réalité physique. À cause d'imprévus matériels de dernière minute (moteurs déconfigurés, carte SD corrompue, surchauffe), notre temps de test a été réduit à seulement 30 minutes.</p>
+                <p>En pratique, pour s'aligner sur un mur, un robot ne peut pas viser une distance mathématique fixe (comme 10,0 cm), il lui faut une <strong>marge de tolérance</strong> (par exemple s'arrêter entre 9 et 11 cm). Faute de temps, nous n'avons pu régler finement cette marge que pour le recentrage au milieu du couloir. Le robot parvient donc à avancer droit en se corrigeant tout seul comme sur la vidéo, mais les virages n'ont pas pu être ajustés à temps.</p>
+                <p><strong>Bilan :</strong> Ce projet m'a permis de valider mes compétences en programmation asynchrone et en traitement de données de capteurs. Les imprévus matériels m'ont forcé à m'adapter rapidement et m'ont prouvé que la confrontation avec la réalité reste l'étape indispensable pour finaliser un projet.</p>
             </div>
         </section>
 
